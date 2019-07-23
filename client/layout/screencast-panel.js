@@ -1,11 +1,12 @@
+import { ContextToolbarOverlayStyle } from '@things-factory/context-ui'
 import {
   addScreencastServices,
   changeScreencastServices,
   removeScreencastServices,
   updateCurrentScreencastService
 } from '@things-factory/screencast-base'
-import { store } from '@things-factory/shell'
-import { css, html, LitElement } from 'lit-element'
+import { ScrollbarStyles, store } from '@things-factory/shell'
+import { html, LitElement } from 'lit-element'
 import { connect } from 'pwa-helpers/connect-mixin.js'
 
 function read_cookie(name) {
@@ -38,40 +39,29 @@ class ScreencastPanel extends connect(store)(LitElement) {
   }
 
   static get styles() {
-    return [
-      css`
-        :host {
-          display: block;
-          background-color: var(--screencast-panel-background-color);
-
-          height: 100%;
-          min-width: var(--screencast-panel-min-width);
-        }
-
-        :host(:focus) {
-          outline: none;
-        }
-      `
-    ]
+    return [ScrollbarStyles, ContextToolbarOverlayStyle]
   }
 
   render() {
     return html`
       ${(this._services || []).map(
-        service => html`
-          <div
-            .serviceObject=${service}
-            @click=${e => {
-              var obj = e.target.serviceObject
-              store.dispatch(
-                updateCurrentScreencastService({
-                  service: obj
-                })
-              )
-            }}
-          >
-            ${service.name}
-          </div>
+        (service, idx) => html`
+          <label for="${idx}">
+            <li
+              .serviceObject=${service}
+              @click=${e => {
+                var obj = e.target.serviceObject
+                store.dispatch(
+                  updateCurrentScreencastService({
+                    service: obj
+                  })
+                )
+              }}
+            >
+              <mwc-icon>live_tv</mwc-icon>
+              <span>${service.name}</span>
+            </li>
+          </label>
         `
       )}
     `

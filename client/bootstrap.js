@@ -10,7 +10,7 @@ export default function bootstrap() {
   function openContextToolbarOverlay() {
     openOverlay('context-toolbar-overlay', {
       template: html`
-        <print-context-template></print-context-template>
+        <screencast-panel></screencast-panel>
       `
     })
   }
@@ -20,7 +20,7 @@ export default function bootstrap() {
     tool: {
       template: html`
         <mwc-icon
-          @click=${e => openContextToolbarOverlay}
+          @click=${openContextToolbarOverlay}
           style="padding: 10px; background-color: var(--secondary-color); color: white;"
           >cast_connected</mwc-icon
         >
