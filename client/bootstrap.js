@@ -1,5 +1,5 @@
 import '@material/mwc-icon'
-import { APPEND_CONTEXT_TOOL } from '@things-factory/apptool-base'
+import { APPEND_CONTEXT_TOOL } from '@things-factory/context-base'
 import { openOverlay, TOOL_POSITION } from '@things-factory/layout-base'
 import { store } from '@things-factory/shell'
 import { html } from 'lit-html'
@@ -19,7 +19,11 @@ export default function bootstrap() {
     type: APPEND_CONTEXT_TOOL,
     tool: {
       template: html`
-        <mwc-icon @click=${e => openContextToolbarOverlay}>cast_connected</mwc-icon>
+        <mwc-icon
+          @click=${e => openContextToolbarOverlay}
+          style="padding: 10px; background-color: var(--secondary-color); color: white;"
+          >cast_connected</mwc-icon
+        >
       `,
       position: TOOL_POSITION.FRONT_END,
       context: 'screencastable'
