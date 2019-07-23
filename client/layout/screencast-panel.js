@@ -8,6 +8,27 @@ import { store } from '@things-factory/shell'
 import { css, html, LitElement } from 'lit-element'
 import { connect } from 'pwa-helpers/connect-mixin.js'
 
+function read_cookie(name) {
+  var cookieObject = document.cookie
+    .split(';')
+    .map(c => {
+      return c
+        .trim()
+        .split('=')
+        .map(decodeURIComponent)
+    })
+    .reduce((a, b) => {
+      try {
+        a[b[0]] = JSON.parse(b[1])
+      } catch (e) {
+        a[b[0]] = b[1]
+      }
+      return a
+    }, {})
+
+  return cookieObject[name]
+}
+
 class ScreencastPanel extends connect(store)(LitElement) {
   static get properties() {
     return {
@@ -110,7 +131,8 @@ class ScreencastPanel extends connect(store)(LitElement) {
           type: 'screencast-service-selected',
           service: this._currentService,
           params: {
-            token: document.cookie
+            token: read_cookie('access_token'),
+            url: location.pathname
           }
         })
       )

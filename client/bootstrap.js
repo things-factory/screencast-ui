@@ -1,31 +1,28 @@
-import { APPEND_APP_TOOL } from '@things-factory/apptool-base'
-import { appendViewpart, toggleOverlay, TOOL_POSITION, VIEWPART_POSITION } from '@things-factory/layout-base'
+import '@material/mwc-icon'
+import { APPEND_CONTEXT_TOOL } from '@things-factory/apptool-base'
+import { openOverlay, TOOL_POSITION } from '@things-factory/layout-base'
 import { store } from '@things-factory/shell'
 import { html } from 'lit-html'
-import '@material/mwc-icon'
 
 export default function bootstrap() {
   import('./layout/screencast-panel')
 
-  appendViewpart({
-    name: 'screencaster',
-    viewpart: {
-      show: false,
-      hovering: 'edge',
+  function openContextToolbarOverlay() {
+    openOverlay('context-toolbar-overlay', {
       template: html`
-        <screencast-panel></screencast-panel>
+        <print-context-template></print-context-template>
       `
-    },
-    position: VIEWPART_POSITION.FOOTERBAR
-  })
+    })
+  }
 
   store.dispatch({
-    type: APPEND_APP_TOOL,
+    type: APPEND_CONTEXT_TOOL,
     tool: {
       template: html`
-        <mwc-icon @click=${e => toggleOverlay('screencaster')}>cast_connected</mwc-icon>
+        <mwc-icon @click=${e => openContextToolbarOverlay}>cast_connected</mwc-icon>
       `,
-      position: TOOL_POSITION.REAR_END
+      position: TOOL_POSITION.FRONT_END,
+      context: 'screencastable'
     }
   })
 }
