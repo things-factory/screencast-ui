@@ -2,8 +2,7 @@ import { ContextToolbarOverlayStyle } from '@things-factory/context-ui'
 import {
   addScreencastServices,
   changeScreencastServices,
-  removeScreencastServices,
-  updateCurrentScreencastService
+  removeScreencastServices
 } from '@things-factory/screencast-base'
 import { ScrollbarStyles, store } from '@things-factory/shell'
 import { html, LitElement } from 'lit-element'
@@ -50,12 +49,8 @@ class ScreencastPanel extends connect(store)(LitElement) {
             <li
               .serviceObject=${service}
               @click=${e => {
-                var obj = e.target.serviceObject
-                store.dispatch(
-                  updateCurrentScreencastService({
-                    service: obj
-                  })
-                )
+                var obj = e.currentTarget.serviceObject
+                this._currentService = obj
               }}
             >
               <mwc-icon>live_tv</mwc-icon>
@@ -111,21 +106,23 @@ class ScreencastPanel extends connect(store)(LitElement) {
 
   stateChanged(state) {
     this._services = state.screencast.services
-    this._currentService = state.screencast.currentService
   }
 
   onCurrentServiceChanged() {
-    if (window.cordova_iab)
+    if (window.cordova_iab && this._currentService) {
       window.cordova_iab.postMessage(
         JSON.stringify({
           type: 'screencast-service-selected',
           service: this._currentService,
           params: {
             token: read_cookie('access_token'),
-            url: location.pathname
+            url: location.href
           }
         })
       )
+
+      this._currentService = null
+    }
   }
 }
 
