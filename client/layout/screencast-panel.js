@@ -5,7 +5,7 @@ import {
   removeScreencastServices
 } from '@things-factory/screencast-base'
 import { ScrollbarStyles, store } from '@things-factory/shell'
-import { html, LitElement } from 'lit-element'
+import { html, LitElement, css } from 'lit-element'
 import { connect } from 'pwa-helpers/connect-mixin.js'
 
 function read_cookie(name) {
@@ -38,27 +38,42 @@ class ScreencastPanel extends connect(store)(LitElement) {
   }
 
   static get styles() {
-    return [ScrollbarStyles, ContextToolbarOverlayStyle]
+    return [
+      ScrollbarStyles,
+      ContextToolbarOverlayStyle,
+      css`
+        :host {
+          min-height: 200px;
+        }
+
+        [nolist] {
+        }
+      `
+    ]
   }
 
   render() {
     return html`
-      ${(this._services || []).map(
-        (service, idx) => html`
-          <label for="${idx}">
-            <li
-              .serviceObject=${service}
-              @click=${e => {
-                var obj = e.currentTarget.serviceObject
-                this._currentService = obj
-              }}
-            >
-              <mwc-icon>live_tv</mwc-icon>
-              <span>${service.name}</span>
-            </li>
-          </label>
-        `
-      )}
+      ${!this._services || this._services.length == 0
+        ? html`
+            <div nolist>No hatio TV is found</div>
+          `
+        : this._services.map(
+            (service, idx) => html`
+              <label for="${idx}">
+                <li
+                  .serviceObject=${service}
+                  @click=${e => {
+                    var obj = e.currentTarget.serviceObject
+                    this._currentService = obj
+                  }}
+                >
+                  <mwc-icon>live_tv</mwc-icon>
+                  <span>${service.name}</span>
+                </li>
+              </label>
+            `
+          )}
     `
   }
 
