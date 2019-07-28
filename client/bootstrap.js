@@ -4,9 +4,9 @@ import { openOverlay, TOOL_POSITION } from '@things-factory/layout-base'
 import { store } from '@things-factory/shell'
 import { html } from 'lit-html'
 
-export default function bootstrap() {
-  import('./layout/screencast-panel')
+import './layout/screencast-panel'
 
+export default function bootstrap() {
   function openContextToolbarOverlay() {
     openOverlay('context-toolbar-overlay', {
       template: html`
