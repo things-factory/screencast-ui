@@ -36,7 +36,6 @@ export default function bootstrap() {
               })
             )
           }}
-          style="padding: 10px; background-color: var(--secondary-color); color: white;"
           >cast_connected</mwc-icon
         >
       `,
