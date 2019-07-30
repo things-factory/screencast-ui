@@ -1,6 +1,6 @@
 {
   "name": "@things-factory/screencast-ui",
-  "version": "1.0.0-beta.15",
+  "version": "1.0.0-beta.16",
   "main": "dist-server/index.js",
   "browser": "client/index.js",
   "things-factory": true,
