@@ -1,6 +1,6 @@
 {
   "name": "@things-factory/screencast-ui",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "main": "dist-server/index.js",
   "browser": "client/index.js",
   "things-factory": true,
@@ -23,10 +23,10 @@
     "migration:revert": "node ./node_modules/typeorm/cli.js migration:revert"
   },
   "dependencies": {
-    "@things-factory/apptool-base": "*",
-    "@things-factory/layout-base": "*",
-    "@things-factory/screencast-base": "^1.0.0-beta",
-    "@things-factory/shell": "*"
+    "@things-factory/apptool-base": "^0.9.0",
+    "@things-factory/layout-base": "^0.9.0",
+    "@things-factory/screencast-base": "^1.1.0",
+    "@things-factory/shell": "^0.9.0"
   },
   "devDependencies": {}
 }
