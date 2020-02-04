@@ -25,8 +25,7 @@
   "dependencies": {
     "@things-factory/apptool-base": "^2.0.0",
     "@things-factory/layout-base": "^2.0.0",
-    "@things-factory/screencast-base": "^2.0.0",
-    "@things-factory/shell": "^2.0.0"
+    "@things-factory/screencast-base": "^2.0.0"
   },
   "devDependencies": {}
 }
